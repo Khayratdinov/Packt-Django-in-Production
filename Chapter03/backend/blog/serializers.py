@@ -21,7 +21,7 @@ class BlogCustomSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-#######################
+# ================== ОБНОВЛЕНИЕ СУЩЕСТВУЮЩИХ ОБЪЕКТОВ МОДЕЛИ ================= #
 
 
 class BlogCustom2Serializer(serializers.ModelSerializer):
@@ -34,7 +34,9 @@ class BlogCustom2Serializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-#######################
+# ==================== РЕАЛИЗАЦИЯ ОТНОШЕНИЙ СЕРИАЛИЗАТОРА ==================== #
+
+
 class BlogCustom3Serializer(serializers.ModelSerializer):
     author = serializers.PrimaryKeyRelatedField(
         queryset=author_models.Author.objects.all()
@@ -52,6 +54,9 @@ class BlogCustom3Serializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+# ==================== РАБОТА С ВЛОЖЕННЫМИ СЕРИАЛИЗАТОРАМИ =================== #
+
+
 class BASerializer(serializers.ModelSerializer):
     class Meta:
         model = author_models.Author
@@ -66,7 +71,7 @@ class BlogCustom4Serializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-#######################
+# ====================== ИЗУЧЕНИЕ SERIALIZERMETHODFIELD ====================== #
 
 
 class BlogCustom5Serializer(serializers.ModelSerializer):
@@ -80,7 +85,9 @@ class BlogCustom5Serializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-#######################
+# ================= ИСПОЛЬЗОВАТЬ ПОЛЬЗОВАТЕЛЬСКОЕ ИМЯ МЕТОДА ================= #
+
+
 class BlogCustom6CustomSerializer(serializers.ModelSerializer):
     word_count = serializers.SerializerMethodField(method_name="use_custom_word_count")
 
@@ -92,7 +99,9 @@ class BlogCustom6CustomSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-#######################
+# ===================== НАСТРОЙКА ПРОВЕРКИ НА УРОВНЕ ПОЛЯ ==================== #
+
+
 class BlogCustom7Serializer(serializers.ModelSerializer):
     def validate_title(self, value):
         print("validate_title method")
@@ -105,7 +114,7 @@ class BlogCustom7Serializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-#######################
+# ========== ОПРЕДЕЛЕНИЕ ПОЛЬЗОВАТЕЛЬСКОГО ВАЛИДАТОРА НА УРОВНЕ ПОЛЯ ========= #
 
 
 def demo_func_validator(attr):
@@ -125,7 +134,7 @@ class BlogCustom8Serializer(serializers.ModelSerializer):
         }
 
 
-#######################
+# =================== ВЫПОЛНЕНИЕ ПРОВЕРКИ НА УРОВНЕ ОБЪЕКТА ================== #
 
 
 class BlogCustom9Serializer(serializers.ModelSerializer):
@@ -139,7 +148,9 @@ class BlogCustom9Serializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-#######################
+# ======== ОПРЕДЕЛЕНИЕ ПОЛЬЗОВАТЕЛЬСКИХ ВАЛИДАТОРОВ НА УРОВНЕ ОБЪЕКТОВ ======= #
+
+
 def custom_obj_validator(attrs):
     print("custom object validator")
     if attrs["title"] == attrs["content"]:
@@ -154,7 +165,9 @@ class BlogCustom10Serializer(serializers.ModelSerializer):
         validators = [custom_obj_validator]
 
 
-#######################
+# ======================== ПОРЯДОК ОЦЕНКИ ВАЛИДАТОРОВ ======================== #
+
+
 def func_validator(attr):  # 1- Evaluates first
     print("func val")
     if "*" in attr:
@@ -179,7 +192,7 @@ class BlogCustom11Serializer(serializers.ModelSerializer):
         extra_kwargs = {"title": {"validators": [func_validator]}}
 
 
-####################
+# ======= УДАЛЕНИЕ ВАЛИДАТОРОВ ПО УМОЛЧАНИЮ ИЗ КЛАССА СЕРИАЛИЗАТОРА DRF ====== #
 
 
 class BlogCustom12Serializer(serializers.ModelSerializer):
@@ -189,7 +202,7 @@ class BlogCustom12Serializer(serializers.ModelSerializer):
         validators = []
 
 
-####################
+# ====================== ИСПОЛЬЗОВАНИЕ TO_INTERNAL_VALUE ===================== #
 
 
 class BlogCustom13Serializer(serializers.ModelSerializer):
@@ -202,7 +215,7 @@ class BlogCustom13Serializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-####################
+# ====================== ИСПОЛЬЗОВАНИЕ TO_REPRESENTATION ===================== #
 
 
 class BlogCustom14Serializer(serializers.ModelSerializer):
@@ -216,7 +229,7 @@ class BlogCustom14Serializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-####################
+# ========= ИСПОЛЬЗОВАНИЕ АРГУМЕНТА КОНТЕКСТА ДЛЯ ПЕРЕДАЧИ ИНФОРМАЦИИ ======== #
 
 
 class BlogCustom15Serializer(serializers.ModelSerializer):
@@ -229,7 +242,7 @@ class BlogCustom15Serializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-####################
+# =========== ПЕРЕДАЧА ПОЛЬЗОВАТЕЛЬСКОГО QUERYSET В PRIMARYKEYFIELD ========== #
 
 
 class CustomPKRelatedField(serializers.PrimaryKeyRelatedField):
@@ -249,4 +262,4 @@ class BlogCustom16Serialzier(serializers.ModelSerializer):
         fields = "__all__"
 
 
-####################
+# ============================================================================ #
