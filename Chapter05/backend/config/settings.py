@@ -38,14 +38,9 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-CUSTOM_APPS = [
-    "blog",
-    "author",
-]
+CUSTOM_APPS = ["blog", "author", "user"]
 
-THIRD_PARTY_APPS = [
-    # 'rest_framework',
-]
+THIRD_PARTY_APPS = ["rest_framework", "rest_framework.authtoken"]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + CUSTOM_APPS
 
@@ -141,3 +136,16 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+# AUTH_USER_MODEL = "user.CustomUser"
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+        # This is to support session based authentication when using the browsable API
+        "rest_framework.authentication.SessionAuthentication",
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
+}

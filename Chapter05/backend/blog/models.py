@@ -17,6 +17,12 @@ class Blog(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        permissions = [
+            ("update_title", "Can update the title of the blog"),
+            ("update_content", "Can update the content of blog"),
+        ]
+
 
 class BaseTimeStampModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
