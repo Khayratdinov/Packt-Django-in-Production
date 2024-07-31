@@ -40,7 +40,7 @@ DJANGO_APPS = [
 
 CUSTOM_APPS = ["blog", "author", "user"]
 
-THIRD_PARTY_APPS = ["rest_framework", "rest_framework.authtoken"]
+THIRD_PARTY_APPS = ["rest_framework", "rest_framework.authtoken", "django-cacheops"]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + CUSTOM_APPS
 
@@ -148,4 +148,19 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
     ],
+}
+
+
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://default:admin12345@redis-11076.c84.us-east-1-2.ec2.cloud.redislabs.com:11076",
+    }
+}
+
+CACHEOPS_REDIS = {
+    "host": "redis-11076.c84.us-east-1-2.ec2.cloud.redislabs.com:11076",  # Redis endpoint
+    "port": 15014,  # for redis lab, port is 15014
+    "socket_timeout": 3,  # connection timeout in seconds, optional
+    "password": "admin12345",
 }
