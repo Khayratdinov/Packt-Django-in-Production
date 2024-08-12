@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -38,9 +39,9 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-CUSTOM_APPS = ["blog", "author", "user"]
+CUSTOM_APPS = ["blog", "author", "user", "common"]
 
-THIRD_PARTY_APPS = ["rest_framework", "rest_framework.authtoken", "django-cacheops"]
+THIRD_PARTY_APPS = ["rest_framework", "rest_framework.authtoken", "cacheops"]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + CUSTOM_APPS
 
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "common.localthread_middleware.PopulateLocalsThreadMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -163,4 +165,28 @@ CACHEOPS_REDIS = {
     "port": 15014,  # for redis lab, port is 15014
     "socket_timeout": 3,  # connection timeout in seconds, optional
     "password": "admin12345",
+}
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {"format": "%(asctime)s %(process)d %(thread)d %(message)s"}
+    },
+    "loggers": {
+        "django_default": {
+            "handlers": ["django_file"],
+            "level": "INFO",
+            "propogate": True,
+        },
+    },
+    "handlers": {
+        "django_file": {
+            "class": "common.custom_log_handlers.MakeRotatingFileHandler",
+            "filename": os.path.join(BASE_DIR, "logs/django_logs.log"),
+            "maxBytes": 1024 * 1024 * 10,  # 10MB
+            "backupCount": 10,
+            "formatter": "verbose",
+        },
+    },
 }
