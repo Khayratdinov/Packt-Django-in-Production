@@ -2,5 +2,8 @@ from django.apps import AppConfig
 
 
 class AuthorConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'author'
+    default_auto_field = "django.db.models.BigAutoField"
+    name = "author"
+
+    def ready(self):
+        from author import receivers

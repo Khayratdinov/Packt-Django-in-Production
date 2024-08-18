@@ -65,3 +65,12 @@ def blog_view(request):
         return Response(status=403)
     print("User has permission to view blog")
     return Response(status=200)
+
+
+# ============================================================================ #
+
+
+def get_blog_without_pagination(request):
+    blogs = Blog.objects.all()
+    blogs_data = BlogSerializer(blogs, many=True).data
+    return Response({"blogs": blogs_data})
