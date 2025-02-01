@@ -18,6 +18,8 @@ The repository is structured to ensure maximum learning efficiency and provide a
 ## 🗂 Contents
 
 1. [**Chapter 01**](./Chapter01): Setting Up Django with Django REST Framework (DRF)  
+1. [**Chapter 02**](./Chapter02): Exploring Django ORM, Models, and Migrations
+1. [**Chapter 03**](./Chapter03): Serializing Data with DRF 
 
 ---
 
